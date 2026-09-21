@@ -39,7 +39,6 @@ function getSundays(year, month) {
 
 		for (let day = 1; day <= numberOfDays; day++) {
 			const date = new Date(Date.UTC(year, month - 1, day));
-			// console.log(date.toString());
 			const dayOfWeek = date.getDay();
 			const isSunday = dayOfWeek === 0;
 
@@ -49,7 +48,6 @@ function getSundays(year, month) {
 		}
 	}
 
-	console.log(sundaysArr);
 	return sundaysArr;
 }
 
