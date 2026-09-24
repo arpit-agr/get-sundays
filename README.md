@@ -8,10 +8,10 @@ The problem does not say what happens in case of any of the following:
 
 - empty input
 - wrong input type
+- decimals
+- months outside 1-12
 
-## Assumptions
-
-If the arguments are not of the type number early return
+In the above cases, the code throws an error.
 
 ## TODO
 
