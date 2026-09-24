@@ -17,4 +17,4 @@ In the above cases, the code throws an error.
 
 - [x] Decide what bad input does, and make both branches agree.
 - [x] Work out the time complexity.
-- [ ] Write one learning.
+- [x] Write one learning.
