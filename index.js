@@ -18,10 +18,6 @@ export function getSundays(year, month) {
 	const hasTemporal = typeof Temporal !== "undefined";
 
 	if (hasTemporal) {
-		// for every date in the given month and year get the day of the week
-		// check if that day is Sunday (divisible by 7)
-		// if true, then push that date to the array
-
 		const plainDateObj = Temporal.PlainDate.from({
 			year: year,
 			month: month,
