@@ -1,5 +1,19 @@
 export function getSundays(year, month) {
-	let sundaysArr = [];
+	if (typeof year !== "number" || typeof month !== "number") {
+		throw new TypeError();
+	}
+
+	if (!Number.isInteger(year) || !Number.isInteger(month)) {
+		throw new TypeError("Invalid input: the arguments must be an integer");
+	}
+
+	if (month < 1 || month > 12) {
+		throw new RangeError(
+			"Invalid input: the month argument must between 1 and 12",
+		);
+	}
+
+	const sundaysArr = [];
 
 	const hasTemporal = typeof Temporal !== "undefined";
 
@@ -42,7 +56,9 @@ export function getSundays(year, month) {
 			const isSunday = dayOfWeek === 0;
 
 			if (isSunday) {
-				sundaysArr.push(date.toISOString().slice(0, -14));
+				const dateString = date.toISOString();
+				const formattedDateString = dateString.split("T")[0];
+				sundaysArr.push(formattedDateString);
 			}
 		}
 	}

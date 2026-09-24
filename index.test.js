@@ -3,8 +3,16 @@ import assert from "node:assert/strict";
 import { getSundays } from "./index.js";
 
 const cases = [
-	["typical month", [2026, 9], ["2026-09-06", "2026-09-13", "2026-09-20", "2026-09-27"]],
-	["leap February", [2024, 2], ["2024-02-04", "2024-02-11", "2024-02-18", "2024-02-25"]],
+	[
+		"typical month",
+		[2026, 9],
+		["2026-09-06", "2026-09-13", "2026-09-20", "2026-09-27"],
+	],
+	[
+		"leap February",
+		[2024, 2],
+		["2024-02-04", "2024-02-11", "2024-02-18", "2024-02-25"],
+	],
 	[
 		"month starts on a Sunday",
 		[2026, 3],
@@ -30,8 +38,16 @@ const cases = [
 		[2004, 2],
 		["2004-02-01", "2004-02-08", "2004-02-15", "2004-02-22", "2004-02-29"],
 	],
-	["century leap year", [2000, 2], ["2000-02-06", "2000-02-13", "2000-02-20", "2000-02-27"]],
-	["century non-leap year", [1900, 2], ["1900-02-04", "1900-02-11", "1900-02-18", "1900-02-25"]],
+	[
+		"century leap year",
+		[2000, 2],
+		["2000-02-06", "2000-02-13", "2000-02-20", "2000-02-27"],
+	],
+	[
+		"century non-leap year",
+		[1900, 2],
+		["1900-02-04", "1900-02-11", "1900-02-18", "1900-02-25"],
+	],
 	[
 		"January (month index off-by-one trap)",
 		[2027, 1],
@@ -52,8 +68,16 @@ const cases = [
 		[2024, 11],
 		["2024-11-03", "2024-11-10", "2024-11-17", "2024-11-24"],
 	],
-	["before the Unix epoch", [1969, 12], ["1969-12-07", "1969-12-14", "1969-12-21", "1969-12-28"]],
-	["last 4-digit year", [9999, 12], ["9999-12-05", "9999-12-12", "9999-12-19", "9999-12-26"]],
+	[
+		"before the Unix epoch",
+		[1969, 12],
+		["1969-12-07", "1969-12-14", "1969-12-21", "1969-12-28"],
+	],
+	[
+		"last 4-digit year",
+		[9999, 12],
+		["9999-12-05", "9999-12-12", "9999-12-19", "9999-12-26"],
+	],
 	[
 		"2-digit year must not become 19xx",
 		[50, 6],
@@ -66,17 +90,42 @@ const cases = [
 	],
 ];
 
+const badInputCases = [
+	["no arguments", [], TypeError],
+	["month missing", [2026], TypeError],
+	["year is not a number", ["abc", 9], TypeError],
+	["empty strings must not become 0", ["", ""], TypeError],
+	["null must not become 0", [null, null], TypeError],
+	["true must not become 1", [true, 9], TypeError],
+	["year is not a whole number", [2026.5, 9], TypeError],
+	["month is not a whole number", [2026, 9.5], TypeError],
+	["month above 12", [2026, 13], RangeError],
+	["month 0", [2026, 0], RangeError],
+	["negative month", [2026, -1], RangeError],
+];
+
 function runCases() {
 	for (const [name, input, expected] of cases) {
 		test(`${name}: getSundays(${input.join(", ")})`, () => {
 			assert.deepEqual(getSundays(...input), expected);
 		});
 	}
+
+	for (const [name, input, errorType] of badInputCases) {
+		const args = input.map((arg) => JSON.stringify(arg)).join(", ");
+		test(`${name}: getSundays(${args}) throws ${errorType.name}`, () => {
+			assert.throws(() => getSundays(...input), errorType);
+		});
+	}
 }
 
-describe("Temporal branch", { skip: typeof Temporal === "undefined" && "Temporal not available" }, () => {
-	runCases();
-});
+describe(
+	"Temporal branch",
+	{ skip: typeof Temporal === "undefined" && "Temporal not available" },
+	() => {
+		runCases();
+	},
+);
 
 describe("Date branch", () => {
 	const originalTemporal = globalThis.Temporal;

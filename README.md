@@ -4,12 +4,17 @@ Given a year and month, return an array containing every date in that month that
 
 ## What the problem doesn’t say
 
-The problem does not mention anything about timezones.
+The problem does not say what happens in case of any of the following:
+
+- empty input
+- wrong input type
 
 ## Assumptions
 
+If the arguments are not of the type number early return
+
 ## TODO
 
-1. Tidy up
-2. Work out the time complexity
-3. Write learnings
+- [x] Decide what bad input does, and make both branches agree.
+- [x] Work out the time complexity.
+- [ ] Write one learning.
