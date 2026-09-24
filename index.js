@@ -1,16 +1,16 @@
 export function getSundays(year, month) {
 	if (typeof year !== "number" || typeof month !== "number") {
-		throw new TypeError();
+		throw new TypeError(
+			`Year and month must be numbers, got ${typeof year} and ${typeof month}`,
+		);
 	}
 
 	if (!Number.isInteger(year) || !Number.isInteger(month)) {
-		throw new TypeError("Invalid input: the arguments must be an integer");
+		throw new TypeError("Year and month must be whole numbers");
 	}
 
 	if (month < 1 || month > 12) {
-		throw new RangeError(
-			"Invalid input: the month argument must between 1 and 12",
-		);
+		throw new RangeError(`Month must be between 1 and 12, got ${month}`);
 	}
 
 	const sundaysArr = [];
