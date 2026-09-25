@@ -1,3 +1,5 @@
+// used Claude to create a lot of the edge cases and write the test runner
+
 import { describe, test, before, after } from "node:test";
 import assert from "node:assert/strict";
 import { getSundays } from "./index.js";
