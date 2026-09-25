@@ -1,4 +1,8 @@
-# The problem in clear words
+# Get Sundays
+
+Interview question from [Cassidy Williams' newsletter](https://buttondown.com/cassidoo/archive/u1f9d1-u1f3a8-always-make-room-for-the-unexpected/)
+
+## The problem in clear words
 
 Given a year and month, return an array containing every date in that month that falls on a Sunday. Return each date in YYYY-MM-DD format.
 
